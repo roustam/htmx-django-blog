@@ -1,0 +1,9 @@
+<section class="side-section">
+  {% for tag in tags.all %}
+    <span class="tag">
+      <a href="{% url 'tag_results' tag=tag.name %}">{{ tag }}</a>
+    </span>
+  {% empty %}
+    <p>No tags yet.</p>
+  {% endfor %}
+</section>
