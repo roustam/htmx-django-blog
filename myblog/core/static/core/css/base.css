@@ -1,109 +1,116 @@
-* {
-  box-sizing: border-box;
+base.css
+html, body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    height: 100vh;      /* Use 100% of the viewport height */
+    width: 100vw;       /* Use 100% of the viewport width */
+    overflow: hidden;    /* Prevent the window itself from scrolling */
+    font-family: monospace;
+    color: #EDEDED;
+}
+
+/* Remove overflow: hidden from body to allow mobile/default scrolling behaviors */
+body {
+    background-color: #222831;
 }
 
 a {
-  color: #2C3930;
-  font-weight: bold;
-}
-
-a:visited {
-  color:#1D1616;
-}
-
-body {
-  margin: 0;
-  background-color: #6B728E;
-}
-
-main {
-  display: flex;
-  width: 100%;
-}
-
-.main-sidebar {
-  display: flex;
-  background-color: transparent;
-}
-
-.main {
-  display: flex;
-  flex-direction: row;
-  min-width: 100%;
-}
-
-.main-content {
-  display: flex;
-  
-  width: 100%;
-  min-height: 80vh;
-}
-
-.post-feed {
-  display: flex;
-  flex-direction: column;
-  margin-left: 1em;
-  margin-right: 1em;
-}
-
-.post-entry {
-  margin: 0 1rem;
-  padding: 0 0.5rem;
-  background: white;
-  border-radius: 0.33rem;
-}
-
-@media (max-width: 900px) {
-  .post-feed {
-    grid-template-columns: 1fr;
-  }
-}
-
-.post-feed {
-  width: auto;
-}
-
-.posts-section {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  background-color: #C69749;
-}
-
-.post-list {
-  background-color: white;
-  color:#1D1616;
-  overflow: hidden;
-  padding: 1rem 0.5rem 1rem 0.5rem;
-  border-radius: 0.33rem;
-  margin-bottom:0.66rem;
-}
-
-.new-chunk-post {
-  background-color: aquamarine;
-}
-
-.post-view-list {
-  max-height: 200px;
-  overflow: hidden;
-}
-
-.side-section {
-  display: flex;
-  flex-flow: column;
-  width: 7rem;
+    color: #A13333;
 }
 
 .tag {
-  border: 1px solid #735F32;
-  border-radius: 0.45rem;
-  margin-bottom: 0.45rem;
-  color:#25343F;
-  background-color: #C69749;
-  text-align: center;
+    color:#FFD369;
+}
+.layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    height: 100vh;      /* Force the grid to stay exactly screen-sized */
 }
 
-.empty-posts {
-  font-weight: 600;
+/* Sidebar stays fixed on the left while you scroll the right */
+.sidebar {
+    background: rgba(57, 62, 70, 0.9);
+    height: 100vh; 
+    overflow-y: auto;   /* Scroll only if the tags list is too long */
+    padding: 0.5rem 2rem 2rem 2rem;
+    border-right: 1px solid #61677A;
+    background-image: url('/static/core/img/moon-svgrepo-com.svg');
+    background-size: 15rem;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-blend-mode: overlay;
 }
 
+.sidebar-logo {
+    height: 7.5rem;
+    width: auto;
+}
+
+.sidebar-header {
+    font-weight: 800;
+    font-size: large;
+    color: #FFD369;
+    border-bottom: 1px solid #FFD369;
+    padding-bottom: 0.5rem;
+}
+
+.sidebar-list {
+    list-style: none;
+    margin:0;
+    padding:0;
+    font-weight: 800;
+    font-size: larger;
+    margin-top:2rem;
+}
+
+/* The main content area */
+.main-content {
+    height: 100vh;      /* Keep it locked to the screen height */
+    overflow-y: auto;   /* THIS is the only part that will scroll now */
+    padding: 2rem 2rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile Safari */
+}
+
+.post-container-entry {
+    margin-bottom: 0.5rem;
+    line-height: 1.25rem;
+}
+
+#posts-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;    /* Center the posts within the scroll area */
+}
+
+article {
+    padding-left:1rem;
+    margin: 0 1rem 1rem 0;
+    border: 1px solid #3A3845;
+    padding-bottom: 0.4rem;
+}
+
+article > h2 {
+    border-bottom: 1px solid #3A3845;
+    padding-bottom: 0.5rem;
+}
+
+/* HTMX Spinner Logic */
+#spinner {
+    text-align: center;
+    padding: 0;
+    color: #101010;
+}
+
+.htmx-request#spinner {
+    display: block;
+}
+
+.trigger {
+    overflow: hidden;
+    min-height: 10px;
+    overflow-anchor: none; /* Larger target area for intersection */
+}

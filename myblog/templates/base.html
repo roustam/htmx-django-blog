@@ -1,34 +1,65 @@
-{% load django_htmx %}
-{% load static %}
-<!doctype html>
+{% load django_htmx static %}
+{% if not request.htmx %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}My Blog{% endblock %}</title>
-  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
-  <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
-  {% django_htmx_script %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    <title>Infinite Scroll Blog</title>
+    {% htmx_script %}
 </head>
 <body>
-  {% block header %}
-    {% include "header.html" %}
-  {% endblock %}
+    <div class="layout">
+        <aside class="sidebar">
+            <img src="{% static 'core/img/logo_bash.svg' %}" class="sidebar-logo"/>
+            <span class="sidebar-header">Topics</span>
+            <ul class="sidebar-list">
+                {% for tag in tags %}
+                    <li><a href="/tags/{{ tag.name }}">{{ tag.name }}</a></li>
+                {% empty %}
+                    <li>No tags yet.</li>
+                {% endfor %}
+            </ul>
+        </aside>
 
-  <main class="main">
-    <aside class="main-sidebar">
-      {% block side_section %}
-        {% include "side_section.html" %}
-      {% endblock %}
-    </aside>
+        <main class="main-content">
+        {% endif %}
+        {% block content %}
+        
+            <div id="posts-container">
+                {% for post in posts_list %}
+                    <article>
+                        <h2><a href="/posts/{{ post.post_slug }}">{{ post.post_title }}</a></h2>
+                        <div class="post-container-entry">{{ post.body_preview|safe }}...</div>
+                        <div class="tags">
+                          {% for tag in post.tags.all %}
+                            <span class="tag">#{{ tag }}</span>
+                          {% endfor %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
 
-    <section class="main-content">
-      {% block content %}{% endblock %}
-    </section>
-  </main>
+            <div id="spinner" class="htmx-indicator">
+                Loading more posts...
+            </div>
 
-  {% block footer%}
-    {% include "footer.html" %}
-  {% endblock %}
+            {% if has_next %}
+                <div class="trigger"
+                     hx-get="{{ next_url }}"
+                     hx-trigger="intersect once"
+                     hx-target="#posts-container"
+                     hx-swap="beforeend"
+                     hx-indicator="#spinner"
+                     hx-select="article, .trigger"
+                     id="scroll-trigger">
+                </div>
+            {% endif %}
+{% endblock %}
+{% if not request.htmx %}
+        </main>
+    </div>
 </body>
 </html>
+{% endif %}
