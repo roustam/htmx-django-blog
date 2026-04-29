@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from posts.models import Tag, Post
@@ -48,6 +49,10 @@ def post_view(request, post_slug):
 
 def search_results(request):
     q = request.GET.get('q', '').strip()
+
+    if not q:
+        raise Http404("No search query provided.")
+
     page_number = request.GET.get("page", 1)
 
     results = (
@@ -76,7 +81,7 @@ def search_results(request):
             else None
         ),
     }
-    template_name = "posts_chunk.html" if request.htmx else "search_results.html"
+    template_name = "base.html"
     return render(request, template_name, context)
 
 def tag_results(request, tag: str):

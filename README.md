@@ -1,2 +1,7 @@
 Blog built with django and django-htmx.
-This info is being updated.
+
+-----------------------
+29 / 04 / 2026 v.01
+Simply post, tags and search features.
+Django admin for editing. 
+-----------------------

@@ -7,9 +7,9 @@ SITE_NAME = "Techno blog"
 
 SECRET_KEY = "django-insecure-r!^!$t^=uavaeeydfrmlu52s^$00b)904#l^d($^mjynecarbc"
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     "django.contrib.admin",

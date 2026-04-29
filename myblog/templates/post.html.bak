@@ -1,0 +1,13 @@
+<div class="post-list">
+    <div style="background-image: url('https://picsum.photos/seed/picsum/200');" class="post-list-header">
+        <a href="{% url 'post_view' post.post_slug %}">{{ post.post_title }} 12345</a>
+    </div>
+    <p> {{ post.body_preview|striptags }} post thml</p>
+    <span>
+        {% for tag in post.tags.all %}
+        <span class="post-tag">{{ tag.name }}</span>
+        {% empty %}
+          <span class="no-tags">No tags</span>
+        {% endfor %}
+    </span>
+</div>
