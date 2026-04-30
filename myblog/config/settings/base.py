@@ -1,11 +1,16 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file if it exists
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Site name in the header
 SITE_NAME = "Techno blog"
 
-SECRET_KEY = "django-insecure-r!^!$t^=uavaeeydfrmlu52s^$00b)904#l^d($^mjynecarbc"
+SECRET_KEY = os.environ.get('SECRET_KEY', "django-insecure-r!^!$t^=uavaeeydfrmlu52s^$00b)904#l^d($^mjynecarbc")
 
 DEBUG = False
 
