@@ -5,7 +5,6 @@ Django==6.0.3
 django-htmx==1.27.0
 django-js-asset==3.1.2
 django-prose-editor==0.25.1
-gunicorn==21.2.0
 Markdown==3.10.2
 nh3==0.3.4
 python-dotenv==1.0.0
@@ -13,3 +12,4 @@ ruff==0.15.9
 sqlparse==0.5.5
 tinycss2==1.5.1
 webencodings==0.5.1
+whitenoise==6.12.0
