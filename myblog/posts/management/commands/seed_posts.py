@@ -1,10 +1,11 @@
 import random
-from posts.models import Post, Tag
-from uuid import uuid3
-from django.utils.text import slugify
 from datetime import datetime
+
 # myblog/posts/management/commands/seed_posts.py
 from django.core.management.base import BaseCommand
+from django.utils.text import slugify
+from posts.models import Post, Tag
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):

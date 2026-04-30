@@ -1,11 +1,14 @@
+from urllib.parse import urlencode
+
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.db.models.functions import Substr
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from posts.models import Tag, Post
-from django.db.models.functions import Substr
-from urllib.parse import urlencode
+
+from posts.models import Post, Tag
+
 
 def post_list(request):
 
